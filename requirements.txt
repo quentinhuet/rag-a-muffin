@@ -5,3 +5,4 @@ pandas
 jupyterlab
 chromadb
 uuid
+ollama
