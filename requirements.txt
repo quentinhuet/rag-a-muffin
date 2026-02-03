@@ -1,0 +1,7 @@
+torch
+numpy
+sentence-transformers
+pandas
+jupyterlab
+chromadb
+uuid
