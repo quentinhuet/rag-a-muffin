@@ -14,6 +14,16 @@ class RAGTool:
         embeddings = self.model.encode(data)
         return embeddings
 
+    # La fonction suivante ne sert plus, elle a été archivée pour maintenir l'historique de travail
+    # cf README.md, partie II.3
+    '''
+    def rechercher(self, question: str, embeddings, k: int=3):
+        question_embedding = self.model.encode(question)
+
+        scores = util.cos_sim(question_embedding, embeddings)
+        top_results = torch.topk(scores, k=3)
+        return top_results
+    '''
 
 # Tests 
 if __name__ == "__main__":

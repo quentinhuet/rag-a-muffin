@@ -3,7 +3,7 @@ import sys
 from src.data_loader import load_data
 from src.embeddings import RAGTool
 from src.vector_store import RecipeDB
-from src.generator import MuffinChef
+from src.generator_v1 import MuffinChef
 
 current_file_path = os.path.abspath(__file__)
 project_root = os.path.dirname(current_file_path)

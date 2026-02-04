@@ -40,3 +40,29 @@ Cependant, dans l'état actuel des choses, on ne peut pas discuter avec le modè
 On va modifier ça avec `generator_v2.py` et `main_v3.py`.
 
 Cependant, en ajoutant le côté conversationnel, la rappel de sécurité ajouté après chaque réponse de l'utilisateur va prendre beaucoup de place. On l'enlève donc pour l'instant et on blinde un peu plus le system prompt.
+
+On a donc un système permettant d'échanger sur la recette, puis, lorsqu'on le demande avec la commande "changer", relancer une autre discussion, autour d'une autre recette.
+
+## 6ème étape : mise en place des données "de qualité"
+
+Maintenant que l'on a un système fonctionnel, il est nécessaire de le remplir avec des données de qualité, plutôt que les données factices entrées pour l'instant. 
+Après quelques recherches sur Internet, je n'ai trouvé aucun dataset de recettes écrit en français, du moins aucun qui soit suffisament conséquenet pour contenir un nombre notable de recettes de muffins, à la fois sucrées, et salées. 
+Plusieurs solutions s'offrent à nous : 
+- générer des recettes à l'aide d'un LLM actuel. Je trouve ça un peu dommage de faire ça, car ce seraient uniquement des recettes "inventées" par LLM, plutôt que des recettes proposées par des "usagers". Je vais donc commencer par essayer la deuxième solution.
+- scraper toutes les recettes de muffin d'un site de cuisine type Marmiton ou Cuisine AZ.
+
+Marmiton propose 619 résultats à la recherche "muffin". L'objectif va donc être pour nous de récupérer l'ensemble de ces 619 recettes, avec, pour chacune, le titre, la liste d'ingrédients et les consignes. On pourra entrer l'url de la recette dans les métadonnées de notre dataset.
+
+Pour ce travail de scraping, j'ai beaucoup utilisé les éléments disponibles sur le site "Automate the Boring Stuff" : https://automatetheboringstuff.com/3e/chapter13.html
+
+### 6.1 - Récupération des URLs de toutes les recettes de muffin sur Marmiton
+
+On note que l'on peut accéder à la page de recherche Marmiton, sur la recherche des muffins, via l'url suivante : https://www.marmiton.org/recettes/recherche.aspx?aqt=muffin&page=1
+
+Le terme "page=1" permet de choisir la page de recherche. Ainsi, on peut itérer sur les pags de recherche, tant qu'elles existent, pour accéder à toutes les pages HTML de recherche de recettes de muffins.
+
+On extrait les données HTML de chacune de ces pages à l'aide `requests`, et on analyse ces données HTML pour extraire, sur chaque page, tous les URLs permettant d'accéder à des recettes de Muffin, à l'aide du module `beautifulsoup4`.
+
+### 6.2 - Récupération des données de chaque recette
+
+On accède aux données HTML de chaque page "Recette". On utilise à nouveau `beautifulsoup4` pour extraire les données clés des recettes.

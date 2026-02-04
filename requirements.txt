@@ -6,3 +6,5 @@ jupyterlab
 chromadb
 uuid
 ollama
+requests
+beautifulsoup4
