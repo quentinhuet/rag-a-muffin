@@ -2,7 +2,7 @@ import json
 import os
 from typing import List, Dict
 
-def load_data(file_path: str = "data/raw/mock_recipes.json") -> List[Dict]:
+def load_data(file_path: str = "data/raw/recettes_fr.json") -> List[Dict]:
     """
     Charge les recettes depuis un fichier JSON local.
     
@@ -30,20 +30,20 @@ def load_data(file_path: str = "data/raw/mock_recipes.json") -> List[Dict]:
     # Nettoyage et Formatage
     for item in raw_data:
         titre = item.get("titre", "Recette sans titre")
-        ingredients = item.get("ingredients", "")
-        preparation = item.get("preparation", "")
+        texte = item.get("texte", "")
+        metadata = item.get("metadata")
+        metadata["titre"] = titre
         
         # Création du texte pour le RAG
         texte_rag = (
             f"Titre : {titre}\n"
-            f"Ingrédients : {ingredients}\n"
-            f"Préparation : {preparation}"
+            f"{texte}\n"
         )
         
         data.append({
             "titre": titre,
             "texte": texte_rag,  # On garde le texte formaté
-            "metadata": {"titre": titre, "source": "local_mock_data"} # Utile pour savoir d'où ça vient
+            "metadata": metadata # Utile pour savoir d'où ça vient
         })
 
     print(f"Succès : {len(data)} recettes chargées.")

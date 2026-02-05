@@ -66,3 +66,20 @@ On extrait les données HTML de chacune de ces pages à l'aide `requests`, et on
 ### 6.2 - Récupération des données de chaque recette
 
 On accède aux données HTML de chaque page "Recette". On utilise à nouveau `beautifulsoup4` pour extraire les données clés des recettes.
+
+La fonction `extraction_class` permet d'extraire tous les différents éléments d'une même classe au sein de la page HTML de la recette.
+La fonction `from_url_to_text` permet, à partir de l'URL d'une recette sur le site de Marmiton, d'extraire toutes les données des différentes classes ingrédient, ustensile et consignes, et de le renvoyer sous la forme d'un bloc de texte propre.
+
+Ainsi, en faisant tourner `from_url_to_text` sur les URL extraits en partie 6.1, et on les exportant au format JSON, on obtient une base de donnée de recettes de muffins, scrapée que le site de Marmiton. On peut la mettre à jour en faisant tourner `build_db.py`.
+
+## 7ème étape : interface graphique
+
+On génère une interface graphique de chat à l'aide de Streamlit. 
+
+## 8ème étape : debugging
+
+J'ai constaté que les réponses de "Chef Muffin" était souvent peu précises. Soit il était obstiné vis à vis de la recette donnée, ce qui le rendait très peu naturel, soit il inventait des recettes.
+Pour répondre à cet enjeu, j'ai testé différentes versions de System Prompt, pour voir celle qui collerait le mieux. 
+J'ai également changé le réglage de température da la réponse du LLM, pour le rendre moins "créatif".
+
+Finalement, on obtient un Chef Muffin plutôt bon ! 

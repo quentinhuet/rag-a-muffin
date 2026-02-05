@@ -7,6 +7,7 @@ from typing import List
 class RAGTool:
     def __init__(self, model_name: str='paraphrase-multilingual-MiniLM-L12-v2'):
         print(f"🔄 Initialisation : Chargement du modèle {model_name}...")
+        print(f"⬇️ Pas d'inquiétude si un message bizarre s'affiche ci-dessous, c'est normal !")
         self.model = SentenceTransformer(model_name)
         print("✅ Modèle chargé et prêt !")
 
