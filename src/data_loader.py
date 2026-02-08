@@ -36,7 +36,7 @@ def load_data(file_path: str = "data/raw/recettes_fr.json") -> List[Dict]:
         
         # Création du texte pour le RAG
         texte_rag = (
-            f"Titre : {titre}\n"
+            f"Titre de la recette: {titre}\n"
             f"{texte}\n"
         )
         

@@ -1,3 +1,101 @@
+# I - 🧁 Chef Muffin AI (RAG-a-Muffin)
+
+**Chef Muffin** est un assistant culinaire intelligent basé sur une architecture RAG (Retrieval-Augmented Generation). Contrairement à une IA générique, il n' "hallucine" pas des recettes : il utilise une base de données construite à partir de vraies recettes françaises scrappées sur Marmiton.
+
+Son obsession ? **Les Muffins.** Il refuse catégoriquement de cuisiner autre chose.
+
+---
+
+## 🏗️ Architecture Technique
+
+Le projet repose sur 3 piliers :
+
+1.  **Scraping** : Un script Python récupère, nettoie et structure les recettes depuis le web (`BeautifulSoup`).
+2.  **Retrieval** : Les recettes sont transformées en vecteurs mathématiques (`sentence-transformers`) et stockées dans une base vectorielle (`ChromaDB`).
+3.  **LLM (Generation)** : Un modèle local (`Llama 3.2` via **Ollama**) génère les réponses en incarnant le personnage du Chef, guidé par les données récupérées.
+
+**Stack Technique :**
+* **Langage :** Python 3.10+
+* **Interface :** Streamlit
+* **LLM :** Ollama (Llama 3.2)
+* **Vector Store :** ChromaDB
+* **Scraping :** Requests, BeautifulSoup4
+
+---
+
+## ⚙️ Prérequis
+
+Avant de commencer, assurez-vous d'avoir :
+
+1.  **Python** installé sur votre machine.
+2.  **Ollama** installé et en cours d'exécution.
+    * Téléchargez-le sur [ollama.com](https://ollama.com).
+    * Téléchargez le modèle nécessaire via le terminal :
+      ```bash
+      ollama pull llama3.2
+      ```
+
+---
+
+## 🚀 Installation
+
+1.  **Cloner le projet :**
+    ```bash
+    git clone git@github.com:quentinhuet/rag-a-muffin.git
+    cd rag-a-muffin
+    ```
+
+2.  **Créer un environnement virtuel (recommandé) :**
+    ```bash
+    python -m venv .venv
+    # Sur Mac/Linux :
+    source .venv/bin/activate
+    # Sur Windows :
+    # .venv\Scripts\activate
+    ```
+
+3.  **Installer les dépendances :**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+---
+
+## 🛠️ Utilisation
+
+### Étape 1 : Construire la Base de Données (ETL)
+⚠️ **Cette étape est obligatoire lors de la première utilisation.**
+Elle va scraper les recettes et créer le fichier JSON brut.
+
+```bash
+python src/build_database_fr.py
+```
+
+Le script va récupérer des recettes de muffins sur Marmiton et générer le fichier ```data/raw/recettes_fr.json```.
+
+### Étape 2 : Lancer l'application
+
+Lancez l'interface web Streamlit. Lors du premier lancement, l'application va automatiquement indexer les données dans ChromaDB (cela peut prendre quelques secondes).
+
+```
+streamlit run app.py
+```
+Votre navigateur s'ouvrira automatiquement à l'adresse http://localhost:8501.
+
+## 🤖 Fonctionnalités de l'IA
+- **Recherche Sémantique :** Trouvez une recette même si vous ne connaissez pas le titre exact (ex: "J'ai du chocolat et des bananes").
+
+- **Refus d'Obstacle (Guardrails) :** Chef Muffin détecte les demandes hors-sujet (Lasagnes, Pizzas...) et les refuse avec humour en redirigeant vers une recette de muffin.
+
+- **Mémoire Conversationnelle :** Vous pouvez discuter avec le chef de la recette en cours.
+
+- **Hallucination Control :** L'IA est bridée (Température 0) pour ne jamais inventer d'ingrédients absents du contexte.
+
+- **Reset :** Un bouton "Nouvelle Conversation" permet de vider la mémoire et de changer de recette.
+
+## 👤 Auteur
+Projet réalisé dans le cadre d'un cours de NLP par **Quentin Huet**
+
 # II - Historique de construction
 
 ## 1ère étape : gestion des données
