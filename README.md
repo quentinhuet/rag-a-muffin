@@ -68,7 +68,7 @@ Avant de commencer, assurez-vous d'avoir :
 Elle va scraper les recettes et créer le fichier JSON brut.
 
 ```bash
-python src/build_database_fr.py
+python src/build_db.py
 ```
 
 Le script va récupérer des recettes de muffins sur Marmiton et générer le fichier ```data/raw/recettes_fr.json```.

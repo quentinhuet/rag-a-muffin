@@ -18,15 +18,6 @@ st.caption("L'assistant culinaire qui ne cuisine que des muffins.")
 
 with st.sidebar:
     st.image("https://cdn-icons-png.flaticon.com/512/1046/1046857.png", width=100)
-    st.title("Options")
-    
-    # Bouton de Reset complet
-    if st.button("🗑️ Nouvelle Conversation", type="primary", use_container_width=True):
-        st.session_state.messages = []
-        st.session_state.recette_active = None
-        st.rerun()
-
-    st.divider()
 
     # Section Guide / Astuces
     st.markdown("### 💡 Comment ça marche ?")
