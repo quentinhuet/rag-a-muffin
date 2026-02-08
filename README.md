@@ -41,7 +41,7 @@ Avant de commencer, assurez-vous d'avoir :
 
 1.  **Cloner le projet :**
     ```bash
-    git clone git@github.com:quentinhuet/rag-a-muffin.git
+    git clone https://github.com/quentinhuet/rag-a-muffin.git
     cd rag-a-muffin
     ```
 
